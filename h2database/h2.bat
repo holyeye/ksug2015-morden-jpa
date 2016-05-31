@@ -1,4 +1,4 @@
-for /r "C:%HOMEPATH%\.m2" %%X in (*h2*.jar) do (set H2CP=%H2CP%;%%X)
+for /r "C:%HOMEPATH%\.m2" %%X in (h2*.jar) do (set H2CP=%H2CP%;%%X)
 
 if "%H2CP%" == "" (goto h2NotFound) else goto end
 
