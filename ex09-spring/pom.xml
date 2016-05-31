@@ -24,6 +24,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        
+<!--         querydsl이 4.x 들어가면서 package 명이 바뀌었고, 아래 spring-data-commons 프로젝트에서 querydsl 4.x 버젼을 지원하고 있다! -->
+        <dependency>
+         	<groupId>org.springframework.data</groupId>
+         	<artifactId>spring-data-commons</artifactId>
+         	<version>1.12.1.RELEASE</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.10.1.RELEASE</version>
+		</dependency>        
 
         <!-- QueryDSL -->
         <dependency>
