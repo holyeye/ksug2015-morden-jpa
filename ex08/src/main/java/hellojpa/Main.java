@@ -1,14 +1,19 @@
 package hellojpa;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+
 import hellojpa.entity.Member;
 import hellojpa.entity.QMember;
 import hellojpa.entity.QTeam;
 import hellojpa.entity.Team;
-
-import javax.persistence.*;
-import java.util.List;
 
 /**
  * @author holyeye@sk.com
@@ -64,31 +69,31 @@ public class Main {
         em.flush(); em.clear();
 
         simpleQuery(em);
-//        joinQuery(em);
-//        fetchJoin(em);
-//        pagingQuery(em);
-//        dynamicQuery(em);
+        joinQuery(em);
+        fetchJoin(em);
+        pagingQuery(em);
+        dynamicQuery(em);
     }
 
     private static void simpleQuery(EntityManager em) {
         //JPQL 조회, 18살 이상 JPQL 조회
-        List<Member> resultList = em.createQuery("select m from Member m where m.age > 18", Member.class)
-                .getResultList();
+//        List<Member> resultList = em.createQuery("select m from Member m where m.age > 18", Member.class)
+//                .getResultList();
 
-        JPAQuery query = new JPAQuery(em);
+        JPAQuery<Member> query = new JPAQuery<Member>(em);
 
         QMember m = QMember.member;
 
         query.from(m).where(m.age.gt(18).and(m.name.startsWith("hi")))
                 .orderBy(m.age.desc());
         
-//        List<Member> list = query.from(m)
-//                .where(m.age.gt(18))
-//                .list(m);
-//
-//        for (Member member : list) {
-//            System.out.println("member = " + member);
-//        }
+        List<Member> list = query.from(m)
+                .where(m.age.gt(18))
+                .fetch();
+
+        for (Member member : list) {
+            System.out.println("member = " + member);
+        }
     }
 
     private static void joinQuery(EntityManager em) {
@@ -96,14 +101,14 @@ public class Main {
 //        List<Member> resultList2 = em.createQuery("select m from Member m join m.team t where t.name = 'teamA'", Member.class)
 //                .getResultList();
 
-        JPAQuery query = new JPAQuery(em);
+        JPAQuery<Member> query = new JPAQuery<Member>(em);
 
         QMember m = QMember.member;
         QTeam t = QTeam.team;
         List<Member> list = query.from(m)
                 .join(m.team, t)
                 .where(t.name.eq("teamA"))
-                .list(m);
+                .fetch();
 
         for (Member member : list) {
             System.out.println("member = " + member);
@@ -116,11 +121,11 @@ public class Main {
 //        List<Member> resultList3 = em.createQuery("select m from Member m", Member.class)
 //                .getResultList();
 
-        JPAQuery query = new JPAQuery(em);
+        JPAQuery<Member> query = new JPAQuery<Member>(em);
 
         QMember m = QMember.member;
         List<Member> list = query.from(m)
-                .list(m);
+                .fetch();
 
         for (Member member : list) {
             System.out.println("member = " + member);
@@ -132,12 +137,11 @@ public class Main {
 //        List<Member> resultList4 = em.createQuery("select m from Member m join fetch m.team", Member.class)
 //                .getResultList();
 
-        JPAQuery query2 = new JPAQuery(em);
+        JPAQuery<Member> query2 = new JPAQuery<Member>(em);
 
         QTeam t = QTeam.team;
         List<Member> list2 = query2.from(m)
-                .join(m.team, t).fetch()
-                .list(m);
+                .join(m.team, t).fetch();
 
         for (Member member : list2) {
             System.out.println("member = " + member);
@@ -154,14 +158,17 @@ public class Main {
                 .getResultList();
 */
 
-        JPAQuery query = new JPAQuery(em);
+        JPAQuery<Member> query = new JPAQuery<Member>(em);
         QMember m = QMember.member;
 
-        List<Member> list = query.from(m)
-                .orderBy(m.age.desc())
+        List<Member> list = 
+        		query.from(m)
+        		.orderBy(m.age.desc())
                 .offset(1)
                 .limit(1)
-                .list(m);
+                .fetch()
+        		;
+        System.out.println("list = " + list);
     }
 
     private static void dynamicQuery(EntityManager em) {
@@ -169,7 +176,7 @@ public class Main {
         String name = "member";
         int age = 9;
 
-        JPAQuery query = new JPAQuery(em);
+        JPAQuery<Member> query = new JPAQuery<Member>(em);
         QMember m = QMember.member;
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -182,7 +189,7 @@ public class Main {
 
         List<Member> list = query.from(m)
                 .where(builder)
-                .list(m);
+                .fetch();
 
         System.out.println("list = " + list);
     }
