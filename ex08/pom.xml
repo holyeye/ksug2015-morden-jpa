@@ -17,14 +17,14 @@
         <dependency>
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>3.6.5</version>
+            <version>${querydsl.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>3.6.5</version>
+            <version>${querydsl.version}</version>
         </dependency>
 
     </dependencies>
