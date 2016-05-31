@@ -80,16 +80,15 @@ public class Main {
         QMember m = QMember.member;
 
         query.from(m).where(m.age.gt(18).and(m.name.startsWith("hi")))
-                .orderBy(m.age.desc())
-/*
-        List<Member> list = query.from(m)
-                .where(m.age.gt(18))
-                .list(m);
-
-*/
-        for (Member member : list) {
-            System.out.println("member = " + member);
-        }
+                .orderBy(m.age.desc());
+        
+//        List<Member> list = query.from(m)
+//                .where(m.age.gt(18))
+//                .list(m);
+//
+//        for (Member member : list) {
+//            System.out.println("member = " + member);
+//        }
     }
 
     private static void joinQuery(EntityManager em) {
