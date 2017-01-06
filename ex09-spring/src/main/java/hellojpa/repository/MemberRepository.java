@@ -12,16 +12,18 @@ import java.util.List;
  * @author holyeye@sk.com
  */
 @Repository
-@Transactional
+@Transactional(readOnly=true)
 public class MemberRepository {
 
     @PersistenceContext
     EntityManager em;
 
+    @Transactional
     public void save(Member member) {
         em.persist(member);
     }
 
+    @Transactional
     public void delete(Long memberId) {
         Member member = em.find(Member.class, memberId);
         em.remove(member);

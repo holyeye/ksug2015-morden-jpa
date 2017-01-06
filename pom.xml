@@ -7,13 +7,19 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.5.RELEASE</version>
+        <version>1.3.5.RELEASE</version>
     </parent>
     
     <groupId>ksug</groupId>
     <artifactId>hello-jpa</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
+    
+    <properties>
+		<java.version>1.8</java.version>
+    	<querydsl.version>4.1.1</querydsl.version>
+    </properties>
+    
     <modules>
         <module>ex01</module>
         <module>ex02</module>
@@ -31,14 +37,17 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.10.Final</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.187</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 </project>

@@ -17,3 +17,10 @@
 
 이 세션은 JPA 자체에 초점을 맞춥니다. 참고로 QueryDSL, 스프링 데이터 JPA도 설명하지만 이런 최신 자바 데이터 저장 기술들은 대부분 JPA를 활용하는 기술입니다. 따라서 JPA 자체를 이해하는 것이 가장 중요합니다.
 세션에 라이브 코딩이 포함되어 있습니다. 노트북을 지참하셔서 함께 따라하시면 더 유익한 시간을 보낼 수 있습니다. :)
+
+## 도움말
+- [m2e-apt 설치](https://github.com/benelog/multiline/wiki/Maven-project-with-Eclipse)
+- h2database local load
+	./h2database/run.bat
+- h2 web console url을 아래와 같이 변경
+	jdbc:h2:tcp://localhost/~/test

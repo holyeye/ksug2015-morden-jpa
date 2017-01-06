@@ -5,7 +5,7 @@
     <parent>
         <artifactId>hello-jpa</artifactId>
         <groupId>ksug</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.5-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -24,19 +24,31 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        
+<!--         querydsl이 4.x 들어가면서 package 명이 바뀌었고, 아래 spring-data-commons 프로젝트에서 querydsl 4.x 버젼을 지원하고 있다! -->
+        <dependency>
+         	<groupId>org.springframework.data</groupId>
+         	<artifactId>spring-data-commons</artifactId>
+         	<version>1.12.1.RELEASE</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.10.1.RELEASE</version>
+		</dependency>        
 
         <!-- QueryDSL -->
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
+            <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>3.6.5</version>
+            <version>${querydsl.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
+            <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <version>3.6.5</version>
+            <version>${querydsl.version}</version>
         </dependency>
 
     </dependencies>
@@ -54,7 +66,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                         </configuration>
                     </execution>
                 </executions>
